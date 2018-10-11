@@ -1,0 +1,6 @@
+CHIP DMux {
+	IN in, sel;
+	OUT a, b;
+	PARTS:
+}
+
