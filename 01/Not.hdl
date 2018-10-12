@@ -1,6 +1,9 @@
+// Nothing fancy here, just connect both inputs of a Nand gate to the input
+
 CHIP Not {
 	IN in;
 	OUT out;
+
 	PARTS:
 	Nand(a=in, b=in, out=out);
 }
