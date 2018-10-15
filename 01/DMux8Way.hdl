@@ -1,0 +1,36 @@
+CHIP DMux8Way {
+    IN in, sel[3];
+    OUT a, b, c, d, e, f, g, h;
+
+    PARTS:
+	// Lets get the not of the selector lines
+	Not(in=sel[0], out=notsel0);
+	Not(in=sel[1], out=notsel1);
+	Not(in=sel[2], out=notsel2);
+
+	// Take selector bits 1 and 2 together
+	And(a=notsel1, b=notsel2, out=notonenottwo);
+	And(a=notsel1, b=sel[2], out=notonetwo);
+	And(a=sel[1], b=notsel2, out=onenottwo);
+	And(a=sel[1], b=sel[2], out=onetwo);
+
+	// Set the pick channels
+	And(a=notonenottwo, b=notsel0, out=picka);
+	And(a=notonenottwo, b=sel[0], out=pickb);
+	And(a=onenottwo, b=notsel0, out=pickc);
+	And(a=onenottwo, b=sel[0], out=pickd);
+	And(a=notonetwo, b=notsel0, out=picke);
+	And(a=notonetwo, b=sel[0], out=pickf);
+	And(a=onetwo, b=notsel0, out=pickg);
+	And(a=onetwo, b=sel[0], out=pickh);
+
+	// And output based in input and pick channels
+	And(a=picka, b=in, out=a);
+	And(a=pickb, b=in, out=b);
+	And(a=pickc, b=in, out=c);
+	And(a=pickd, b=in, out=d);
+	And(a=picke, b=in, out=e);
+	And(a=pickf, b=in, out=f);
+	And(a=pickg, b=in, out=g);
+	And(a=pickh, b=in, out=h);
+}

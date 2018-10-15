@@ -1,0 +1,6 @@
+Notes
+=====
+
+The multiple mux chips could be optimised by sending in explicit selection lines rather
+the the binary selector values. This would move the selector logic outside the individual
+Mux chips and into the bus based variant.

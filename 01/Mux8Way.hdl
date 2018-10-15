@@ -1,0 +1,55 @@
+CHIP Mux8Way {
+	IN a, b, c, d, e, f, g, h, sel[3];
+	OUT out;
+	PARTS:
+
+	// Selection filters
+	Not(in=sel[0], out=notsel0);
+	Not(in=sel[1], out=notsel1);
+	Not(in=sel[2], out=notsel2);
+
+	// pick a
+	And(a=notsel2, b=notsel1, out=picka1);
+	And(a=notsel0, b=picka1, out=picka);
+	// pick b
+	And(a=notsel2, b=notsel1, out=pickb1);
+	And(a=sel[0], b=pickb1, out=pickb);
+	// pick c
+	And(a=notsel2, b=sel[1], out=pickc1);
+	And(a=notsel0, b=pickc1, out=pickc);
+	// pick d
+	And(a=notsel2, b=sel[1], out=pickd1);
+	And(a=sel[0], b=pickd1, out=pickd);
+	// pick e
+	And(a=sel[2], b=notsel1, out=picke1);
+	And(a=notsel0, b=picke1, out=picke);
+	// pick f
+	And(a=sel[2], b=notsel1, out=pickf1);
+	And(a=sel[0], b=pickf1, out=pickf);
+	// pick g
+	And(a=sel[2], b=sel[1], out=pickg1);
+	And(a=notsel0, b=pickg1, out=pickg);
+	// pick h
+	And(a=sel[2], b=sel[1], out=pickh1);
+	And(a=sel[0], b=pickh1, out=pickh);
+
+	
+	// output
+	And(a=picka, b=a, out=term1);
+	And(a=pickb, b=b, out=term2);
+	And(a=pickc, b=c, out=term3);
+	And(a=pickd, b=d, out=term4);
+	And(a=picke, b=e, out=term5);
+	And(a=pickf, b=f, out=term6);
+	And(a=pickg, b=g, out=term7);
+	And(a=pickh, b=h, out=term8);
+
+	Or(a=term1, b=term2, out=int0);
+	Or(a=term3, b=int0, out=int1);
+	Or(a=term4, b=int1, out=int2);
+	Or(a=term5, b=int2, out=int3);
+	Or(a=term6, b=int3, out=int4);
+	Or(a=term7, b=int4, out=int5);
+	Or(a=term8, b=int5, out=out);
+}
+

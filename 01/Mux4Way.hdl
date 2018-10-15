@@ -1,0 +1,21 @@
+CHIP Mux4Way {
+	IN a, b, c, d, sel[2];
+	OUT out;
+	PARTS:
+	// Selection filters
+	Not(in=sel[0], out=notsel0);
+	Not(in=sel[1], out=notsel1);
+	And(a=notsel1, b=notsel0, out=picka);
+	And(a=notsel1, b=sel[0], out=pickb);
+	And(a=sel[1], b=notsel0, out=pickc);
+	And(a=sel[1], b=sel[0], out=pickd);
+	// output
+	And(a=picka, b=a, out=term1);
+	And(a=pickb, b=b, out=term2);
+	And(a=pickc, b=c, out=term3);
+	And(a=pickd, b=d, out=term4);
+	Or(a=term1, b=term2, out=left);
+	Or(a=term3, b=term4, out=right);
+	Or(a=left, b=right, out=out);
+}
+
