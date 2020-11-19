@@ -1,3 +1,8 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/01/Xor.tst
+
 load Xor.hdl,
 output-file Xor.out,
 compare-to Xor.cmp,
@@ -22,4 +27,3 @@ set a 1,
 set b 1,
 eval,
 output;
-
